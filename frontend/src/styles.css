@@ -59,3 +59,14 @@ th, td { border-bottom: 1px solid #dce3eb; padding: 14px 10px; vertical-align: t
 .recent-campaigns button { margin: 0 8px 8px 0; }
 [hidden] { display: none !important; }
 .stream > .secondary { margin-top: 18px; }
+
+.offer-picker { margin-bottom: 20px; min-width: 0; flex: 1; }
+.offer-picker > label { margin-bottom: 0; }
+.add-offer { align-items: flex-end; }
+.add-offer .offer-picker { margin-bottom: 0; }
+.autocomplete { position: relative; }
+.suggestion-panel { position: absolute; z-index: 10; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid #bfccdb; border-radius: 8px; box-shadow: 0 12px 28px #192c4029; max-height: 320px; overflow-y: auto; }
+.suggestion-panel p { padding: 12px 16px; margin: 0; }
+.suggestion-panel ul { margin: 0; padding: 4px; list-style: none; }
+.suggestion-panel li { padding: 12px; border-radius: 5px; cursor: pointer; overflow-wrap: anywhere; }
+.suggestion-panel li.active { background: #eaf1ff; }

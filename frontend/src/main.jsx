@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 import Editor from './Editor';
+import OfferPicker from './OfferPicker';
 
 async function api(path, options) {
   const response = await fetch(`/api/${path}`, options);
@@ -18,7 +19,6 @@ function App() {
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState(null);
   const [requestId, setRequestId] = useState(() => crypto.randomUUID());
-  const [query, setQuery] = useState('');
   const [form, setForm] = useState({name: '', country: '', offer_id: '', domain_id: '', group_id: '', traffic_source_id: ''});
 
   async function load() {
@@ -54,11 +54,6 @@ function App() {
     } catch (error) { setError(error.message); }
     finally { setBusy(false); }
   }
-  const search = query.trim().toLowerCase();
-  const matches = lists?.offers.filter(item => `${item.id} ${item.name}`.toLowerCase().includes(search)) || [];
-  const selectedOffer = lists?.offers.find(item => String(item.id) === String(form.offer_id));
-  const visibleOffers = selectedOffer && !matches.some(item => item.id === selectedOffer.id)
-    ? [selectedOffer, ...matches] : matches;
   return <main>
     <header><span>Keitaro<span className="brand-accent"> / </span>Wrapper</span><span>Создание кампании</span></header>
     <nav className="workspace-tabs" aria-label="Разделы приложения"><button className={tab === 'create' ? 'selected' : 'secondary'} aria-pressed={tab === 'create'} onClick={() => setTab('create')}>Создать</button><button className={tab === 'edit' ? 'selected' : 'secondary'} aria-pressed={tab === 'edit'} onClick={() => setTab('edit')}>Редактировать</button></nav>
@@ -71,10 +66,8 @@ function App() {
         <fieldset disabled={busy || Boolean(result)}>
           <label>Название кампании<input name="name" value={form.name} onChange={update} required maxLength={120} placeholder="campaign1" /><small>Префикс {lists.settings.campaign_prefix} добавляется автоматически.</small></label>
           <label>Код страны<input name="country" value={form.country} onChange={event => {setForm({...form, country: event.target.value.toUpperCase()}); setResult(null); setRequestId(crypto.randomUUID());}} required pattern="[A-Z]{2}" maxLength={2} placeholder="AU" /></label>
-          <label>Поиск оффера<input value={query} onChange={event => setQuery(event.target.value)} placeholder="Название или ID" /><small>Доступно офферов: {lists.offers.length}. Найдено: {matches.length}.</small></label>
-          {matches.length === 0 && <div role="status" className="offer-empty"><p>{lists.offers.length ? 'По этому запросу офферы не найдены.' : 'Keitaro вернул пустой список активных офферов.'}</p>{query && <button type="button" onClick={() => setQuery('')}>Показать все офферы</button>}</div>}
-          <label>Оффер<select name="offer_id" value={form.offer_id} onChange={update} required><option value="">Выберите оффер</option>{visibleOffers.map(item => <option key={item.id} value={item.id}>#{item.id} · {item.name}</option>)}</select></label>
-          <div className="form-grid">{[['domain_id', 'Домен', lists.domains], ['group_id', 'Группа', lists.groups], ['traffic_source_id', 'Источник', lists.sources]].map(([key, label, items]) => <label key={key}>{label}<select name={key} value={form[key]} onChange={update} required><option value="">Выберите</option>{items.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>)}</div>
+          <OfferPicker offers={lists.offers} value={form.offer_id} required disabled={busy || Boolean(result)} onChange={value => {setForm(current => ({...current, offer_id: value})); setRequestId(crypto.randomUUID());}} />
+          <div className="form-grid">{[['domain_id', 'Домен', lists.domains], ['group_id', 'Группа', lists.groups], ['traffic_source_id', 'Источник', lists.sources]].map(([key, label, items]) => <label key={key}>{label}<select name={key} value={form[key]} onChange={update} required>{items.length === 0 && <option value="">Нет доступных значений</option>}{items.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>)}</div>
           <div className="flow-preview"><strong>Маршрут перехода</strong><p>{form.country || 'Выбранная страна'} → Google</p><p>Остальные посетители → выбранный оффер</p></div>
           <button type="submit">{busy ? 'Создаём кампанию…' : 'Создать в Keitaro'}</button>
         </fieldset>

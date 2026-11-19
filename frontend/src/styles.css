@@ -1,0 +1,61 @@
+:root { font-family: Arial, sans-serif; color: #192c40; background: #f2f5f9; font-synthesis: none; }
+body { margin: 0; }
+main { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+header { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 28px; font-size: 16px; }
+header span:first-child { font-weight: 700; }
+section { background: white; border: 1px solid #dce3eb; border-radius: 12px; padding: 32px; }
+h1 { font-size: 28px; margin: 0 0 12px; }
+p { line-height: 1.6; }
+dl { margin: 28px 0; }
+dl div { display: flex; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px solid #e6ebf1; }
+dd { margin: 0; font-weight: 600; }
+button { background: #245bd7; border: 0; border-radius: 6px; color: white; padding: 13px 18px; font: inherit; cursor: pointer; }
+button:disabled { opacity: .6; cursor: default; }
+button:focus-visible { outline: 3px solid #90b8ff; outline-offset: 3px; }
+.error { color: #b3261e; }
+@media (max-width: 540px) { header, dl div { flex-direction: column; gap: 8px; } section { padding: 24px; } }
+.brand-accent { color: #245bd7; }
+section { border-top: 4px solid #245bd7; box-shadow: 0 12px 36px #1936570a; }
+fieldset { border: 0; padding: 0; margin: 24px 0 0; min-width: 0; }
+label { display: block; font-size: 15px; font-weight: 600; margin-bottom: 20px; }
+input, select { display: block; box-sizing: border-box; width: 100%; margin-top: 8px; border: 1px solid #bfccdb; border-radius: 6px; padding: 12px; background: white; color: #192c40; font: inherit; }
+input:focus, select:focus { outline: 2px solid #90b8ff; border-color: #245bd7; }
+small { display: block; font-weight: 400; margin-top: 8px; color: #53677d; }
+.form-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.flow-preview { background: #eef4ff; border-left: 3px solid #245bd7; border-radius: 6px; padding: 18px; margin: 4px 0 24px; }
+.flow-preview p { margin: 10px 0 0; }
+.success { background: #edf8f1; border: 1px solid #a7d8b7; padding: 24px; margin-top: 24px; border-radius: 8px; }
+a { color: #245bd7; }
+@media (max-width: 680px) { .form-grid { grid-template-columns: 1fr; gap: 0; } }
+.editor { margin-top: 28px; }
+.stream { border: 1px solid #dce3eb; border-radius: 8px; padding: 20px; margin-top: 20px; }
+.stream.dirty { background: #fff9df; border-color: #dfc15b; }
+h3 small, td small { display: block; margin-top: 6px; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; text-align: left; }
+th, td { border-bottom: 1px solid #dce3eb; padding: 14px 10px; vertical-align: top; }
+.removed { color: #667484; background: #edf0f3; }
+.secondary { color: #245bd7; border: 1px solid #bccce6; background: white; }
+.weight-control, .add-offer, .stream-actions { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.weight-control input { width: 85px; margin: 0; }
+.add-offer select { margin: 0; min-width: 0; }
+.editor form > button { margin: 0 10px 10px 0; }
+@media (max-width: 680px) { .weight-control, .add-offer, .stream-actions { flex-wrap: wrap; } }
+.campaign-search { padding-bottom: 24px; border-bottom: 1px solid #dce3eb; margin-bottom: 24px; }
+.campaign-results { list-style: none; padding: 0; display: grid; gap: 8px; max-height: 320px; overflow: auto; }
+.campaign-results button { text-align: left; width: 100%; }
+.publication-preview { padding: 24px; border: 2px solid #245bd7; background: #fff; border-radius: 8px; margin-top: 24px; }
+.publication-preview li { margin-bottom: 18px; }
+.autocomplete { position: relative; }
+.suggestion-panel { position: absolute; z-index: 10; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid #bfccdb; border-radius: 8px; box-shadow: 0 12px 28px #192c4029; max-height: 320px; overflow-y: auto; }
+.suggestion-panel p { padding: 12px 16px; margin: 0; }
+.suggestion-panel ul { margin: 0; padding: 4px; list-style: none; }
+.suggestion-panel li { padding: 12px; border-radius: 5px; cursor: pointer; overflow-wrap: anywhere; }
+.suggestion-panel li.active { background: #eaf1ff; }
+.suggestion-panel small { margin-top: 4px; }
+.workspace-tabs { display: flex; gap: 12px; margin-bottom: 20px; }
+.workspace-tabs button { min-width: 140px; }
+.recent-campaigns { margin: 20px 0; }
+.recent-campaigns button { margin: 0 8px 8px 0; }
+[hidden] { display: none !important; }
+.stream > .secondary { margin-top: 18px; }
